@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body background="img/111.JPG" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
+<table width="1500px" height="60px"  border="0" align="center" cellpadding="0" cellspacing="0" id="menu">
+	  <tr>
+	    <td bgcolor="#4F46A1"><div style="font-size: 30px;" > <a href="nextlever.html">青蛙过河第二关</a></div></td>
+        <td bgcolor="#4F46A1"><div style="font-size: 20px;" ><a href="index.html">上一关</a></div></td>
+        <td bgcolor="#4F46A1"><div style="font-size: 20px;" ><a href="login.html">退出</a></div></td>
+		<td bgcolor="#4F46A1"><div style="right"><audio controls="controls" loop="loop"><source src="说好不哭.mp3" type="audio/ogg">点击播放音乐</audio></div></td>
+      </tr>
+</table>
+<div id="app">
+ <button @click="show()" >点击开始游戏</button>
+    请输入：<input type="text" @keyup="show()" v-model="userString"  />
+    <button @click="restart()">再来一次</button>
+    分数<span>{{score}}</span>
+	步数<span>{{steps}}</span>
+</div>
+<canvas id="myCanvas" width="800" height="600" ></canvas>
+<script type="text/javascript">
+    let v=new Vue({
+        el:"#app",
+        data:{
+            userString:"",
+            score:0,
+			steps:0,
+            a:520,
+            b:520,
+            status:0
+        },
+        methods:{
+            show(){
+
+                // 加载背景
+                let canvas=document.getElementById("myCanvas");
+                let context= canvas.getContext("2d");
+                let img_background=new Image();
+                img_background.src="./img/02.png";
+                img_background.onload=function(){
+                    context.drawImage(img_background,0,0);
+                };
+
+                // 显示青蛙
+                let img_frog=new Image();
+                img_frog.src="./img/666.png";
+                img_frog.onload=function(){
+                    context.drawImage(img_frog,0,0);
+                };
+
+                // 条件判断
+                if(this.userString==="a lot of" && this.status===0){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function(){
+                        context.drawImage(img_frog,380,500);
+                    };
+                    this.a=380;
+                    this.b=500
+                    this.status++
+                }else if (this.userString==="young"&&this.status===1){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,510,440);
+                    };
+                    this.a=510;
+                    this.b=440;
+                    this.status++
+                }else if (this.userString==="feet"&&this.status===2){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,220,440);
+                    };
+                    this.a=220;
+                    this.b=440
+					this.status++
+                }else if (this.userString==="read"&&this.status===3){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,370,390);
+                    };
+                    this.a=370;
+                    this.b=390
+					this.status++
+				}else if (this.userString==="brush"&&this.status===4){
+				    this.score++;
+					this.steps++;
+				    this.userString="";
+				    img_frog.onload=function () {
+				        context.drawImage(img_frog,480,350);
+				    };
+				    this.a=480;
+				    this.b=350
+					this.status++
+				}else if (this.userString==="come"&&this.status===5){
+				    this.score++;
+					this.steps++;
+				    this.userString="";
+				    img_frog.onload=function () {
+				        context.drawImage(img_frog,260,350);
+				    };
+				    this.a=260;
+				    this.b=350
+					this.status++
+				}else if (this.userString==="jar"&&this.status===6){
+				    this.score++;
+					this.steps++;
+				    this.userString="";
+				    img_frog.onload=function () {
+				        context.drawImage(img_frog,380,270);
+				    };
+				    this.a=380;
+				    this.b=270
+					this.status++
+				}else if (this.userString==="man"&&this.status===7){
+				    this.score++;
+					this.steps++;
+				    this.userString="";
+				    img_frog.onload=function () {
+				        context.drawImage(img_frog,370,170);
+				    };
+				    this.a=370;
+				    this.b=170
+					this.status++
+				}else {
+                    //获取上一次的位置
+                    let  x=this.a;
+                    let  y=this.b;
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,x,y)
+                    }
+                }
+
+            },
+            restart:function () {
+                this.status=0;
+                this.score=0;
+				this.steps=0;
+                this.a=300;
+                this.b=300;
+                this.show()
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

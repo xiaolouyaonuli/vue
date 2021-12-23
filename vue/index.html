@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body background="img/111.JPG" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
+<table width="1500px" height="60px"  border="0" align="center" cellpadding="0" cellspacing="0" id="menu">
+	  <tr>
+	    <td bgcolor="#4F46A1"><div style="font-size: 30px;" > <a href="index.html">青蛙过河第一关</a></div></td>
+        <td bgcolor="#4F46A1"><div style="font-size: 20px;" ><a href="nextlever.html">下一关</a></div></td>
+        <td bgcolor="#4F46A1"><div style="font-size: 20px;" ><a href="login.html">退出</a></div></td>
+		<td bgcolor="#4F46A1"><div style="right"><audio controls="controls" loop="loop"><source src="说好不哭.mp3" type="audio/ogg">点击播放音乐</audio></div></td>
+      </tr>
+</table>
+<div id="app">
+ <button @click="show()" >点击开始游戏</button>
+    请输入：<input type="text" @keyup="show()" v-model="userString"  />
+    <button @click="restart()">再来一次</button>
+    分数<span>{{score}}</span>
+	步数<span>{{steps}}</span>
+</div>
+<canvas id="myCanvas" width="800" height="600" ></canvas>
+<script type="text/javascript">
+    let v=new Vue({
+        el:"#app",
+        data:{
+            userString:"",
+            score:0,
+			steps:0,
+            a:520,
+            b:520,
+            status:0
+        },
+        methods:{
+            show(){
+
+                // 加载背景
+                let canvas=document.getElementById("myCanvas");
+                let context= canvas.getContext("2d");
+                let img_background=new Image();
+                img_background.src="./img/01.png";
+                img_background.onload=function(){
+                    context.drawImage(img_background,0,0);
+                };
+
+                // 显示青蛙
+                let img_frog=new Image();
+                img_frog.src="./img/666.png";
+                img_frog.onload=function(){
+                    context.drawImage(img_frog,0,0);
+                };
+
+                // 条件判断
+                if(this.userString==="ship" && this.status===0){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function(){
+                        context.drawImage(img_frog,350,500);
+                    };
+                    this.a=350;
+                    this.b=500
+                    this.status++
+                }else if (this.userString==="yes"&&this.status===1){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,160,420);
+                    };
+                    this.a=160;
+                    this.b=420;
+                    this.status++
+                }else if (this.userString==="he"&&this.status===2){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,400,370);
+                    };
+                    this.a=400;
+                    this.b=370
+					this.status++
+                }else if (this.userString==="cold"&&this.status===3){
+                    this.score++;
+					this.steps++;
+                    this.userString="";
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,280,270);
+                    };
+                    this.a=280;
+                    this.b=270
+					this.status++
+				}else {
+                    //获取上一次的位置
+                    let  x=this.a;
+                    let  y=this.b;
+                    img_frog.onload=function () {
+                        context.drawImage(img_frog,x,y)
+                    }
+                }
+
+            },
+            restart:function () {
+                this.status=0;
+                this.score=0;
+				this.steps=0;
+                this.a=300;
+                this.b=300;
+                this.show()
+            }
+
+        }
+    })
+</script>
+</body>
+</html>
